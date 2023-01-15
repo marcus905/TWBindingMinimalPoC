@@ -1,0 +1,32 @@
+﻿@page "/fetchdata"
+@using TWBindingMinimalPoC.Shared
+@inject HttpClient Http
+
+<PageTitle>POC</PageTitle>
+
+<h1>POC</h1>
+
+@if (document == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @((MarkupString)document)
+    
+}
+
+@code {
+    private string? document;
+    private string? demo;
+    private void DoSomething(object e)
+    {
+        Console.WriteLine("I'm doing something");
+        Console.WriteLine($"Demo is {demo}");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        document = await Http.GetStringAsync("MarkupDemo");
+    }
+}
